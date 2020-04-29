@@ -1,11 +1,10 @@
 package moe.cnkirito.security.oauth2.code.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -42,33 +41,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+//    参考地址：https://blog.csdn.net/lixiang987654321/article/details/88132204
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
-        http.
-            requestMatchers()
-                // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
-                // 必须登录过的用户才可以进行 oauth2 的授权码申请
-                .antMatchers("/", "/home","/login","/oauth/authorize")
-                .and()
-            .authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .and()
-            .httpBasic()
-                .disable()
-            .exceptionHandling()
-                .accessDeniedPage("/login?authorization_error=true")
-                .and()
-            // TODO: put CSRF protection back into this endpoint
-            .csrf()
-                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
-                .disable();
-//                .loginPage("/login")
-//                .failureUrl("/login?authentication_error=true")
-//        .httpBasic();
-        // @formatter:on
+//      // 任何人(包括没有经过验证的)都可以访问”/login”和”/login?error”
+        http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+
+//       不验证swagger 接口
+        http.authorizeRequests().regexMatchers(".*swagger.*", ".*v2.*", ".*webjars.*").permitAll()
+        .anyRequest().authenticated();
+
+
     }
 }

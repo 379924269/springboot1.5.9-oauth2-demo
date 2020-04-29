@@ -13,11 +13,11 @@
   * redirect_uri：重定向地址必须和注册的重定向地址相同，不然会报错误，`重定向到的地址带上了授权码参数的`
 
 ### 密码模式:/oauth/token
-* [密码模式连接](http://localhost:8082/oauth/token?username=250577914&password=123456&grant_type=password&scope=get_user_info&client_id=aiqiyi&client_secret=secret)，参数如下：
+* [密码模式连接](http://localhost:8082/oauth/token?username=admin&password=123456&grant_type=password&scope=get_user_info&client_id=aiqiyi&client_secret=secret)，参数如下：
 
 
 ### 验证token：/oauth/check_token
-[验证token连接](http://localhost:8082/oauth/check_token?token=31bc71a6-060b-4e9d-901b-b927a5037e64)，参数如下：
+[验证token连接](http://localhost:8082/oauth/check_token?token=0901662c-b41e-4ffa-a7db-3f720daa7cb2)，参数如下：
 返回信息 
 ````
 {
@@ -31,5 +31,9 @@
 }
 ````
 
+### 刷新token
+[测试刷新token连接](http://localhost:8082/oauth/token?grant_type=refresh_token&refresh_token=your_refresh_token&client_id=client_2&client_secret=123456)
 
-[ClientDetailsServiceConfigurer数据库解释：]() 
+
+### 简单的通过token调用接口
+[调用接口：qq/info/250577914](http://localhost:8082/qq/info/250577914?access_token=9f54d26f-5545-4eba-a124-54e6355dbe69)

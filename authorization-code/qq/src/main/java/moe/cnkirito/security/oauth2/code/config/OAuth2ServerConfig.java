@@ -23,6 +23,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -89,7 +90,7 @@ public class OAuth2ServerConfig {
             // @formatter:off
             clients.inMemory().withClient("aiqiyi")
                     .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("password","authorization_code", "refresh_token", "implicit")
+                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("get_user_info", "get_fanslist")
                     .secret("secret")
@@ -99,7 +100,7 @@ public class OAuth2ServerConfig {
                     .and()
                     .withClient("youku")
                     .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("password","authorization_code", "refresh_token", "implicit")
+                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("get_user_info", "get_fanslist")
                     .secret("secret")
@@ -124,12 +125,16 @@ public class OAuth2ServerConfig {
 //            return new RedisTokenStore(redisConnectionFactory);
         }
 
+//        UserDetailsService配置的原因：参考：https://www.jianshu.com/p/c8e639f86744
+        @Autowired
+        private UserDetailsService userDetailsService;
+
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
             endpoints.tokenStore(tokenStore())
                     .authenticationManager(authenticationManager)
-                    .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-            ;
+                    .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+            endpoints.userDetailsService(userDetailsService);
         }
 
         @Override
