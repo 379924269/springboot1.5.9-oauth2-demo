@@ -47,9 +47,9 @@ public class QQCallbackController {
         params.add("code",code);
         params.add("client_id","aiqiyi");
         params.add("client_secret","secret");
-        params.add("redirect_uri","http://localhost:8081/aiqiyi/qq/redirect");
+        params.add("redirect_uri","https://www.baidu.com/");
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8080/oauth/token", requestEntity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8082/oauth/token", requestEntity, String.class);
         String token = response.getBody();
         log.info("token => {}",token);
         return token;

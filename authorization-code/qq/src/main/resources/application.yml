@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 
 # 需要使用 redis 的话，放开这里
 #spring:

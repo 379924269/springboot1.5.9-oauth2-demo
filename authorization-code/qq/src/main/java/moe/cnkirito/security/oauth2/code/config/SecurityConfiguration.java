@@ -25,8 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService(){
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         // 创建两个 qq 用户
-        manager.createUser(User.withUsername("250577914").password("123456").authorities("USER").build());
-        manager.createUser(User.withUsername("920129126").password("123456").authorities("USER").build());
+        manager.createUser(User.withUsername("admin").password("123456").authorities("USER").build());
+        manager.createUser(User.withUsername("admin1").password("123456").authorities("USER").build());
         return manager;
     }
 

@@ -23,7 +23,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -36,7 +35,6 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  * @author Rob Winch
@@ -88,21 +86,20 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
             // @formatter:off
             clients.inMemory().withClient("aiqiyi")
                     .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "refresh_token", "implicit")
+                    .authorizedGrantTypes("password","authorization_code", "refresh_token", "implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("get_user_info", "get_fanslist")
                     .secret("secret")
                     .redirectUris("http://localhost:8081/aiqiyi/qq/redirect")
-                    .autoApprove(true)
-                    .autoApprove("get_user_info")
+//                    .autoApprove(true)
+//                    .autoApprove("get_user_info")
                     .and()
                     .withClient("youku")
                     .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "refresh_token", "implicit")
+                    .authorizedGrantTypes("password","authorization_code", "refresh_token", "implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("get_user_info", "get_fanslist")
                     .secret("secret")
@@ -138,6 +135,7 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
             oauthServer.realm(QQ_RESOURCE_ID).allowFormAuthenticationForClients();
+            oauthServer.checkTokenAccess("permitAll()");
         }
 
     }
