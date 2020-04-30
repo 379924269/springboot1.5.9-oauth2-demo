@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,10 +31,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @author Rob Winch
@@ -77,9 +81,13 @@ public class OAuth2ServerConfig {
 
     }
 
+
     @Configuration
     @EnableAuthorizationServer
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+
+        @Autowired
+        private DataSource dataSource;
 
         @Autowired
         @Qualifier("authenticationManagerBean")
@@ -88,24 +96,27 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             // @formatter:off
-            clients.inMemory().withClient("aiqiyi")
-                    .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("get_user_info", "get_fanslist")
-                    .secret("secret")
-                    .redirectUris("http://localhost:8081/aiqiyi/qq/redirect")
-//                    .autoApprove(true)
-//                    .autoApprove("get_user_info")
-                    .and()
-                    .withClient("youku")
-                    .resourceIds(QQ_RESOURCE_ID)
-                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("get_user_info", "get_fanslist")
-                    .secret("secret")
-                    .redirectUris("http://localhost:8082/youku/qq/redirect");
+//            clients.inMemory().withClient("aiqiyi")
+//                    .resourceIds(QQ_RESOURCE_ID)
+//                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
+//                    .authorities("ROLE_CLIENT")
+//                    .scopes("get_user_info", "get_fanslist")
+//                    .secret("secret")
+//                    .redirectUris("http://localhost:8081/aiqiyi/qq/redirect")
+////                    .autoApprove(true)
+////                    .autoApprove("get_user_info")
+//                    .and()
+//                    .withClient("youku")
+//                    .resourceIds(QQ_RESOURCE_ID)
+//                    .authorizedGrantTypes("password","authorization_code","client_credentials", "refresh_token", "implicit")
+//                    .authorities("ROLE_CLIENT")
+//                    .scopes("get_user_info", "get_fanslist")
+//                    .secret("secret")
+//                    .redirectUris("http://localhost:8082/youku/qq/redirect");
+
+
             // @formatter:on
+            clients.withClientDetails(clientDetails());
         }
 
         @Bean
@@ -115,14 +126,15 @@ public class OAuth2ServerConfig {
             return store;
         }
 
-        @Autowired
-        RedisConnectionFactory redisConnectionFactory;
+        @Bean
+        public ClientDetailsService clientDetails() {
+            return new JdbcClientDetailsService(dataSource);
+        }
+
 
         @Bean
         public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
-            // 需要使用 redis 的话，放开这里
-//            return new RedisTokenStore(redisConnectionFactory);
+            return new JdbcTokenStore(dataSource);
         }
 
 //        UserDetailsService配置的原因：参考：https://www.jianshu.com/p/c8e639f86744

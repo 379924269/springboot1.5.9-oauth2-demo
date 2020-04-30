@@ -32,7 +32,7 @@
 ````
 
 ### 刷新token
-[测试刷新token连接](http://localhost:8082/oauth/token?grant_type=refresh_token&refresh_token=your_refresh_token&client_id=client_2&client_secret=123456)
+[测试刷新token连接](http://localhost:8082/oauth/token?grant_type=refresh_token&refresh_token=6c6c4d32-a274-4378-a0cd-b43720f152dd&client_id=aiqiyi&client_secret=secret)
 
 
 ### 简单的通过token调用接口
