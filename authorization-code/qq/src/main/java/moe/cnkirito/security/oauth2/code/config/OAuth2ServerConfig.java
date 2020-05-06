@@ -60,6 +60,8 @@ public class OAuth2ServerConfig {
 //            resources.resourceId(QQ_RESOURCE_ID).stateless(false);
         }
 
+
+//        TODO 自定义登录界面和授权界面https://blog.csdn.net/baidu_34389984/article/details/85269366
         @Override
         public void configure(HttpSecurity http) throws Exception {
             // @formatter:off
