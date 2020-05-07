@@ -15,6 +15,7 @@
  */
 package moe.cnkirito.security.oauth2.code.config;
 
+import moe.cnkirito.security.oauth2.code.exception.token.resource.MyTokenExceptionEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -35,10 +36,11 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -53,9 +55,13 @@ public class OAuth2ServerConfig {
     @EnableResourceServer()
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
+        @Resource
+        private MyTokenExceptionEntryPoint tokenExceptionEntryPoint; // token失效处理器
+
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) {
             resources.resourceId(QQ_RESOURCE_ID).stateless(true);
+//            resources.authenticationEntryPoint(tokenExceptionEntryPoint); // token失效处理器
             // 如果关闭 stateless，则 accessToken 使用时的 session id 会被记录，后续请求不携带 accessToken 也可以正常响应
 //            resources.resourceId(QQ_RESOURCE_ID).stateless(false);
         }
@@ -90,6 +96,9 @@ public class OAuth2ServerConfig {
 
         @Autowired
         private DataSource dataSource;
+
+        @Autowired
+        private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
         @Autowired
         @Qualifier("authenticationManagerBean")
@@ -151,6 +160,8 @@ public class OAuth2ServerConfig {
             endpoints.userDetailsService(userDetailsService);
 
             endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
+
+            endpoints.exceptionTranslator(webResponseExceptionTranslator);
         }
 
         @Override

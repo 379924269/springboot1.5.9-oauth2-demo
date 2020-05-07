@@ -12,8 +12,11 @@ import moe.cnkirito.security.oauth2.code.vo.PageVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -35,6 +38,12 @@ public class JdbcTokenStroeController {
     @ApiOperation(value = "添加", notes = "添加", response = IdVo.class)
     public void removeToken(@ApiParam(name = "token", value = "token")
                             @RequestParam(required = false, name = "token") String token) {
+        Collection<OAuth2AccessToken> xx = jdbcTokenStore.findTokensByClientId("aiqiyi");
+        for (OAuth2AccessToken oAuth2AccessToken : xx) {
+            String gettoken = oAuth2AccessToken.getValue();
+            System.out.println("gettoken = " + gettoken);
+        }
+
         jdbcTokenStore.removeAccessToken(token);
     }
 
