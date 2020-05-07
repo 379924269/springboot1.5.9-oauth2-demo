@@ -44,7 +44,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //      // 任何人(包括没有经过验证的)都可以访问”/login”和”/login?error”
         http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 
-        http.authorizeRequests().antMatchers("/systemClientdetailsController/listClientDetails").permitAll();
+        http.csrf().disable();
+
+        http.authorizeRequests().antMatchers("/systemClientdetailsController/listClientDetails",
+                "/module/JdbcTokenStroeController")
+                .permitAll();
 
 //       不验证swagger 接口
         http.authorizeRequests().regexMatchers(".*swagger.*", ".*v2.*", ".*webjars.*").permitAll()

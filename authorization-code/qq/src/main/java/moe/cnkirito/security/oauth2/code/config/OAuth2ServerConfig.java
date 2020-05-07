@@ -149,6 +149,8 @@ public class OAuth2ServerConfig {
                     .authenticationManager(authenticationManager)
                     .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
             endpoints.userDetailsService(userDetailsService);
+
+            endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
         }
 
         @Override

@@ -6,10 +6,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author huazai
@@ -48,5 +50,12 @@ public class TokenTest {
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8082/qq/info/250577914", requestEntity, String.class);
         String getAuthorizeCode = response.getBody();
         log.info("getAuthorizeCode => {}",getAuthorizeCode);
+    }
+
+    @Test
+    public void listTest() {
+        String[] strArray = {"1", "2", "3"};
+        List<String> list = Arrays.asList(strArray);
+        list.add(3,"aa");
     }
 }
