@@ -138,7 +138,7 @@ public class OAuth2ServerConfig {
         }
 
         @Bean
-        public ClientDetailsService clientDetails() {
+        public JdbcClientDetailsService clientDetails() {
             return new JdbcClientDetailsService(dataSource);
         }
 
@@ -154,12 +154,12 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+            endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
+
             endpoints.tokenStore(tokenStore())
                     .authenticationManager(authenticationManager)
                     .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
             endpoints.userDetailsService(userDetailsService);
-
-            endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
 
             endpoints.exceptionTranslator(webResponseExceptionTranslator);
         }

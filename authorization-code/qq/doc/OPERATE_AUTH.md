@@ -1,11 +1,11 @@
 ### 1、授权码模式:/oauth/authorize
 `注：`授权码模式只能在web界面上进行
-* [获取授权码连接](http://localhost:8082/oauth/authorize?client_id=aiqiyi&response_type=code&redirect_uri=http://localhost:8081/aiqiyi/qq/redirect)，参数如下：
+* [获取授权码连接](http://localhost:8082/oauth/authorize?client_id=aiqiyi&response_type=code&redirect_uri=http://localhost:8082/redirt/responseAuthorizationCode)，参数如下：
   * client_id：客户端id
   * response_type：code 固定的
   * redirect_uri：重定向地址必须和注册的重定向地址相同，不然会报错误，`重定向到的地址带上了授权码参数的`
   
-* [通过授权码获取token连接](http://localhost:8082/oauth/token?grant_type=authorization_code&code=vnumxN&client_id=aiqiyi&client_secret=secret&redirect_uri=http://localhost:8081/aiqiyi/qq/redirect)，参数如下：
+* [通过授权码获取token连接](http://localhost:8082/oauth/token?grant_type=authorization_code&code=vnumxN&client_id=aiqiyi&client_secret=secret&redirect_uri=http://localhost:8082/redirt/responseAuthorizationCode)，参数如下：
   * grant_type：授权类型authorization_code，固定的
   * code：上一步获取的授权码
   * client_id： 客户端id
@@ -14,7 +14,7 @@
 
 ### 2、简化模式
 [简化模式参考地址](https://www.cnblogs.com/lexiaofei/p/6934447.html)
-* [简化模式请求](http://localhost:8082/oauth/authorize?client_id=aiqiyi&response_type=token&redirect_uri=http://localhost:8081/aiqiyi/qq/redirect&state=xxx)，参数如下：
+* [简化模式请求](http://localhost:8082/oauth/authorize?client_id=aiqiyi&response_type=token&redirect_uri=http://localhost:8082/redirt/responseAuthorizationCode&state=xxx)，参数如下：
     * response_type：表示授权类型，此处的值固定为"token"，必选项。
     * client_id：表示客户端的ID，必选项。
     * redirect_uri：表示重定向的URI，可选项。
@@ -48,8 +48,16 @@
 [调用接口：qq/info/250577914](http://localhost:8082/qq/info/250577914?access_token=9f54d26f-5545-4eba-a124-54e6355dbe69)
 
 ### 4、客户端模式
-* [客户端模式请求](http://localhost:8082/oauth/token?grant_type=client_credentials&client_id=aiqiyi&client_secret=secret&redirect_uri=http://localhost:8081/aiqiyi/qq/redirect)，参数如下：
+* [客户端模式请求](http://localhost:8082/oauth/token?grant_type=client_credentials&client_id=aiqiyi&client_secret=secret&redirect_uri=http://localhost:8082/redirt/responseAuthorizationCode)，参数如下：
     * grant_type：表示授权类型，必选项，此处的值固定为"client_credentials"
     * client_id：表示客户端的ID，必选项
     * client_secret：客户端的密码，可选项
     * scope：表示申请的权限范围，可选项
+
+
+
+### 注意：token的使用方法 
+-  直接以参数的方式如：
+    * http://localhost:8082/qq/info/250577914?access_token=9f54d26f-5545-4eba-a124-54e6355dbe69
+- 放到header中：
+    * {Authorization：bearer 19153114-aef2-464c-91a7-229bf5c54efa}
