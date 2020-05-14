@@ -4,17 +4,25 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="moe.cnkirito.security.oauth2.code.module.entity.Clientdetails">
-        <id column="appId" property="appId" />
-        <result column="resourceIds" property="resourceIds" />
-        <result column="appSecret" property="appSecret" />
-        <result column="scope" property="scope" />
-        <result column="grantTypes" property="grantTypes" />
-        <result column="redirectUrl" property="redirectUrl" />
-        <result column="authorities" property="authorities" />
-        <result column="access_token_validity" property="accessTokenValidity" />
-        <result column="refresh_token_validity" property="refreshTokenValidity" />
-        <result column="additionalInformation" property="additionalInformation" />
-        <result column="autoApproveScopes" property="autoApproveScopes" />
+        <id column="appId" property="appId"/>
+        <result column="resourceIds" property="resourceIds"/>
+        <result column="appSecret" property="appSecret"/>
+        <result column="scope" property="scope"/>
+        <result column="grantTypes" property="grantTypes"/>
+        <result column="redirectUrl" property="redirectUrl"/>
+        <result column="authorities" property="authorities"/>
+        <result column="access_token_validity" property="accessTokenValidity"/>
+        <result column="refresh_token_validity" property="refreshTokenValidity"/>
+        <result column="additionalInformation" property="additionalInformation"/>
+        <result column="autoApproveScopes" property="autoApproveScopes"/>
     </resultMap>
+    <select id="findDBTable" resultType="java.util.HashMap">
+SHOW TABLES FROM ${dbName}
+    </select>
 
+    <update id="addOauth2Table">
+ <![CDATA[
+            ${createOauth2TableSql}
+          ]]>
+    </update>
 </mapper>

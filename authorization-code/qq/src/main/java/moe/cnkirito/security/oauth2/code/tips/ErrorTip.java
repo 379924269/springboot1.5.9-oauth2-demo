@@ -1,7 +1,7 @@
 package moe.cnkirito.security.oauth2.code.tips;
 
 
-import moe.cnkirito.security.oauth2.code.exception.BizExceptionEnum;
+import moe.cnkirito.security.oauth2.code.enums.ErrorEnum;
 
 /**
  * 返回给前台的错误提示
@@ -17,8 +17,8 @@ public class ErrorTip extends Tip {
         this.message = message;
     }
 
-    public ErrorTip(BizExceptionEnum bizExceptionEnum) {
-        this.code = bizExceptionEnum.getCode();
-        this.message = bizExceptionEnum.getMessage();
+    public ErrorTip(ErrorEnum errorEnum) {
+        this.code = errorEnum.getCode();
+        this.message = errorEnum.getMessage();
     }
 }

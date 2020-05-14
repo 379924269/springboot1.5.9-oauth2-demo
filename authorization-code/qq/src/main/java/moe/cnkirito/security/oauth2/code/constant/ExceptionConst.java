@@ -5,9 +5,9 @@ package moe.cnkirito.security.oauth2.code.constant;
  * @description 异常常量
  * @date 2020/1/14
  */
-public interface ExceptionConst {
+public class ExceptionConst {
     /**
      * 自定义异常返回值
      */
-    int CUSTOM_EXCEPTION_CODE = 1000;
+    public static final int CUSTOM_EXCEPTION_CODE = 1000;
 }

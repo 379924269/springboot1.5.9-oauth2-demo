@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * <p>
@@ -25,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(value = "RedirtResponseController", description = "跳转地址返回相关信息")
 @RestController
-@RequestMapping(value = "/redirt", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class RedirtResponseController {
 
-    @RequestMapping(value = "/responseAuthorizationCode", method = RequestMethod.GET)
+    @RequestMapping(value = "/redirt/responseAuthorizationCode", method = RequestMethod.GET)
     @ApiOperation(value = "跳转地址返回授权码相关信息", response = IdVo.class)
     public Object responseAuthorizationCode(@ApiParam(name = "code", value = "code")
                             @RequestParam(required = false, name = "code") String code) {
@@ -40,11 +42,22 @@ public class RedirtResponseController {
     @Autowired
     private JdbcClientDetailsService jdbcClientDetailsService;
 
-    @RequestMapping(value = "/listClientDetails", method = RequestMethod.GET)
+    @RequestMapping(value = "/redirt/listClientDetails", method = RequestMethod.GET)
     @ApiOperation(value = "listClientDetails", response = IdVo.class)
     public Object ccc(@ApiParam(name = "code", value = "code")
                                             @RequestParam(required = false, name = "code") String code) {
        return jdbcClientDetailsService.listClientDetails();
     }
 
+    @RequestMapping("/custom/getAuthorizationParam")
+    public Object getAuthorizationParam(String clientId) throws Exception {
+        return jdbcClientDetailsService.loadClientByClientId(clientId);
+    }
+
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    @ApiOperation(value = "未登录接口（或叫登录界面跳转接口）", hidden = true)
+//    public ModelAndView login() {
+//        return new ModelAndView(new RedirectView("http://192.168.0.151:1234/login"));
+//    }
 }
+

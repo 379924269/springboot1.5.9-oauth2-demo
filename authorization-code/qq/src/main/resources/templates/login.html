@@ -1,67 +1,61 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="assets/styles/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/styles/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/styles/index.css"/>
 </head>
 
-<style>
-    .login-container {
-        margin: 50px;
-        width: 100%;
-    }
-
-    .form-container {
-        margin: 0px auto;
-        width: 50%;
-        text-align: center;
-        box-shadow: 1px 1px 10px #888888;
-        height: 300px;
-        padding: 5px;
-    }
-
-    input {
-        margin-top: 10px;
-        width: 350px;
-        height: 30px;
-        border-radius: 3px;
-        border: 1px #E9686B solid;
-        padding-left: 2px;
-
-    }
-
-    .btn {
-        width: 350px;
-        height: 35px;
-        line-height: 35px;
-        cursor: pointer;
-        margin-top: 20px;
-        border-radius: 3px;
-        background-color: #E9686B;
-        color: white;
-        border: none;
-        font-size: 15px;
-    }
-
-    .title {
-        margin-top: 5px;
-        font-size: 18px;
-        color: #E9686B;
-    }
-</style>
 <body>
-<div class="login-container">
-    <div class="form-container">
-        <p class="title">用户登录</p>
-        <form name="loginForm" th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="用户名"/>
-            <br/>
-            <input type="password" name="password" placeholder="密码"/>
-            <br/>
-            <button type="submit" class="btn">登 &nbsp;&nbsp; 录</button>
-        </form>
-        <p style="color: red" th:if="${param.error}">用户名或密码错误</p>
+    <div role="main" class="loginscreen middle-box text-center animated fadeInDown">
+        <div>
+            <div class="logo-container">
+                <img width="48" alt="Mx Logo" src="assets/mx_logo.png"/>
+            </div>
+            <div class="info">使用密讯账号登录</div>
+            <div class="info-error" th:if="${param.error}">账号或密码错误</div>
+            <form class="login-form m-t" th:classappend="${param.error} ? '' : 'm-t'" role="form" name="loginForm" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <span class="input-prefix">
+                        <i class="anticon">
+                            <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="user" aria-hidden="true">
+                                <path
+                                    d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z">
+                                </path>
+                            </svg>
+                        </i>
+                    </span>
+                    <input type="text" id="username" name="username" class="form-control form-input" placeholder="账号" autocomplete="off" required=""/>
+                </div>
+                <div class="form-group">
+                    <span class="input-prefix">
+                        <i class="anticon">
+                            <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="lock" aria-hidden="true">
+                                <path d="M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 10-56 0z">
+                                </path>
+                            </svg>
+                        </i>
+                    </span>
+                    <input type="password" id="password" name="password" class="form-control form-input" placeholder="密码" autocomplete="off" required=""/>
+                </div>
+                <button type="submit" class="btn btn-custom btn-block">登录</button>
+            </form>
+        </div>
     </div>
-</div>
+    
+    <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
+        <path id="Path_3" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
+    </svg>
+
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="assets/js/index.js"></script>
 </body>
+
 </html>

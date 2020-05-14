@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    background-color: #fff;
+    font-feature-settings: 'tnum';
+    overflow: hidden;
+}
+
+svg#clouds {
+    position: fixed;
+    bottom: -140px;
+    left: -230px;
+    width: 1920px;
+    z-index: -10;
+}
+
+.middle-box {
+    max-width: 300px;
+    z-index: 100;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.loginscreen.middle-box,
+.grantscreen.middle-box {
+    width: 200px;
+}
+
+.logo-container {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.logo-container img {
+    margin: 20px 16px;
+}
+
+.info {
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+}
+
+.info-error {
+    color: #ff4d4f;
+    height: 30px;
+    line-height: 30px;
+    display: none;
+}
+
+.m-t {
+    margin-top: 30px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-group .input-prefix,
+.form-group .input-suffix {
+    position: absolute;
+    top: 4px;
+    font-size: 16px;
+}
+
+.form-group .input-prefix {
+    left: 13px;
+}
+
+.form-group .input-suffix {
+    right: 13px;
+}
+
+.form-group .form-input {
+    padding-left: 38px;
+}
+
+.form-input.suffix {
+    padding-right: 38px;
+}
+
+.input-prefix {
+    margin-right: 4px;
+}
+
+.input-prefix,
+.input-suffix {
+    flex: none;
+}
+
+.anticon {
+    display: inline-block;
+    color: inherit;
+    font-style: normal;
+    line-height: 0;
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon svg {
+    display: inline-block;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.anticon>* {
+    line-height: 1;
+}
+
+/* Button General */
+.btn {
+    border: none;
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+.btn,
+.btn:active,
+.btn:focus {
+    outline: 0
+}
+
+.btn:not([disabled]):hover {
+    text-decoration: none
+}
+
+.btn:not([disabled]):active {
+    outline: 0;
+    box-shadow: none
+}
+
+.btn.disabled,
+.btn[disabled] {
+    cursor: not-allowed
+}
+
+.btn.disabled>*,
+.btn[disabled]>* {
+    pointer-events: none
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045)
+}
+
+.btn-custom:focus,
+.btn-custom:hover {
+    color: #fff;
+    background-color: #40a9ff;
+    border-color: #40a9ff
+}
+
+.btn-custom.active,
+.btn-custom:active {
+    color: #fff;
+    background-color: #096dd9;
+    border-color: #096dd9
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.has-error>label,
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #ff4d4f;
+}
+
+.has-error .form-control {
+    border-color: #ff4d4f;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.has-error .input-prefix {
+    color: #ff4d4f;
+}
+
+.has-error .form-control:focus {
+    border-color: #ff7875;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 2px rgba(255, 77, 79, .2);
+    box-shadow: 0 0 0 2px rgba(255, 77, 79, .2);
+}
+
+.has-error.form-group,
+.has-error .help-block {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.grant-form .grant-list {
+    margin-top: 18px;
+    display: none;
+}
+
+.grant-form .grant-list>li {
+    padding-left: 4px;
+    list-style-type: circle;
+    color: rgba(0, 0, 0, .45);
+    font-size: 90%;
+}

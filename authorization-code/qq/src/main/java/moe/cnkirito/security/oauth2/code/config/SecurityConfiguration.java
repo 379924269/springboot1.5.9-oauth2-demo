@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    //    参考地址：https://blog.csdn.net/lixiang987654321/article/details/88132204
+    // secureity无状态参考地址：https://blog.csdn.net/u010365540/article/details/81842787
+    // 参考地址：https://blog.csdn.net/lixiang987654321/article/details/88132204
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //      // 任何人(包括没有经过验证的)都可以访问”/login”和”/login?error”
@@ -47,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/systemClientdetailsController/listClientDetails",
                 "/module/JdbcTokenStroeController", "http://localhost:8082/redirt/responseAuthorizationCode"
-        ,"/redirt/listClientDetails")
+                , "/redirt/listClientDetails", "/assets/**")
                 .permitAll();
 
 //       不验证swagger 接口

@@ -3,6 +3,8 @@ package moe.cnkirito.security.oauth2.code.exception.token;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import moe.cnkirito.security.oauth2.code.exception.BusinessException;
+import moe.cnkirito.security.oauth2.code.constant.ExceptionConst;
 
 import java.io.IOException;
 
@@ -21,9 +23,25 @@ public class MyOAuthExceptionJacksonSerializer extends StdSerializer<MyOAuth2Exc
 
     @Override
     public void serialize(MyOAuth2Exception value, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
+        if (value.getSummary().contains("Invalid authorization code")) {
+            jgen.writeStartObject();
+            jgen.writeObjectField("code", value.getHttpErrorCode());
+            jgen.writeStringField("message", "无效的授权码");
+            jgen.writeEndObject();
+            return;
+        }
+        if (value.getSummary().contains("Token was not recognised")) {
+            jgen.writeStartObject();
+            jgen.writeObjectField("code", value.getHttpErrorCode());
+            jgen.writeStringField("message", "令牌无法识别");
+            jgen.writeEndObject();
+            return;
+        }
+
+
         jgen.writeStartObject();
         jgen.writeObjectField("code", value.getHttpErrorCode());
-        jgen.writeStringField("msg", value.getSummary());
+        jgen.writeStringField("message", value.getSummary());
         jgen.writeEndObject();
     }
 }

@@ -11,7 +11,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author huazai
@@ -52,10 +56,13 @@ public class TokenTest {
         log.info("getAuthorizeCode => {}",getAuthorizeCode);
     }
 
+    private static final Map<String, String> MAP = new ConcurrentHashMap<>();
+    private static final HashMap<String, String> MAP1 = new HashMap<>();
+    private static final String aa = "xxx";
+
     @Test
     public void listTest() {
-        String[] strArray = {"1", "2", "3"};
-        List<String> list = Arrays.asList(strArray);
-        list.add(3,"aa");
+        MAP1.put("1", "ss");
+        System.out.println("MAP1 = " + MAP1);
     }
 }

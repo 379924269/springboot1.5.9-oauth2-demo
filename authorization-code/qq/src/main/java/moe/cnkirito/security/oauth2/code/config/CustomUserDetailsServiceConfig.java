@@ -5,6 +5,7 @@ import moe.cnkirito.security.oauth2.code.module.entity.User;
 import moe.cnkirito.security.oauth2.code.module.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +27,8 @@ public class CustomUserDetailsServiceConfig implements UserDetailsService {
         }
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("user");
+        authorities.add(authority);
 
 //明天来改一下这里， 参考https://blog.csdn.net/I_am_Hutengfei/article/details/100561564 的userdetail
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);

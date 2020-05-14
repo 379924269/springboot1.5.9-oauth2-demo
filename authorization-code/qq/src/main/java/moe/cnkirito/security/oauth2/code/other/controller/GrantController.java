@@ -29,5 +29,4 @@ public class GrantController {
         System.out.println(authorizationRequest.getClientId());
         return view;
     }
-
 }

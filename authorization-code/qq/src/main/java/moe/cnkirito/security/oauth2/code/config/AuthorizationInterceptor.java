@@ -1,11 +1,13 @@
 package moe.cnkirito.security.oauth2.code.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Min;
 import java.util.Enumeration;
 
 /**
@@ -15,6 +17,7 @@ import java.util.Enumeration;
  * @Date: 2019/7/1
  */
 @Slf4j
+@Order(Integer.MIN_VALUE)
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
