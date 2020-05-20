@@ -1,5 +1,6 @@
 server:
   port: 8082
+  context-path: /oauth2/
 
 # 需要使用 redis 的话，放开这里
 #spring:
@@ -15,7 +16,7 @@ logging.level.org.springframework.security: DEBUG
 spring:
   datasource:
     username: root
-    password: 123456
+    password: derper123
     url: jdbc:mysql://127.0.0.1:3306/ptt?useUnicode=true&characterEncoding=utf8
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver

@@ -60,12 +60,13 @@ public class OAuth2ServerConfig {
             http
                     .requestMatchers()
                     // 保险起见，防止被主过滤器链路拦截
-                    .antMatchers("/qq/**").and()
+                    .antMatchers("/qq/**", "/client/**").and()
                     .authorizeRequests().anyRequest().authenticated()
                     .and()
                     .authorizeRequests()
                     .antMatchers("/qq/info/**").access("#oauth2.hasScope('get_user_info')")
-                    .antMatchers("/qq/fans/**").access("#oauth2.hasScope('get_fanslist')");
+                    .antMatchers("/qq/fans/**").access("#oauth2.hasScope('get_fanslist')")
+                    .antMatchers("/client/**").access("#oauth2.hasScope('get_user_info')");
         }
 
     }

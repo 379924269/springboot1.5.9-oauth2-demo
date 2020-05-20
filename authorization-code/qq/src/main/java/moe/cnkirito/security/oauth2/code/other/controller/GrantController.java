@@ -29,4 +29,9 @@ public class GrantController {
         System.out.println(authorizationRequest.getClientId());
         return view;
     }
+
+    @RequestMapping("/doc")
+    public String doc() throws Exception {
+        return "redirect:swagger-ui.html";
+    }
 }

@@ -1,8 +1,8 @@
 package moe.cnkirito.security.oauth2.code.config;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import moe.cnkirito.security.oauth2.code.module.entity.User;
-import moe.cnkirito.security.oauth2.code.module.service.IUserService;
+import moe.cnkirito.security.oauth2.code.module.entity.Users;
+import moe.cnkirito.security.oauth2.code.module.service.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,14 +14,21 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * description: 实现自定义的账号和密码
+ *
+ * @author: 华仔
+ * @date: 2020/5/20
+ */
 @Component
 public class CustomUserDetailsServiceConfig implements UserDetailsService {
 
     @Autowired
-    private IUserService iUserService;
+    private IUsersService iUsersService;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = iUserService.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, userName));
+        Users user = iUsersService.getOne(new QueryWrapper<Users>().lambda().eq(Users::getMobile, userName));
         if (user == null) {
             throw new UsernameNotFoundException("UserName " + userName + " not found");
         }
@@ -30,7 +37,7 @@ public class CustomUserDetailsServiceConfig implements UserDetailsService {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("user");
         authorities.add(authority);
 
-//明天来改一下这里， 参考https://blog.csdn.net/I_am_Hutengfei/article/details/100561564 的userdetail
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        //参考https://blog.csdn.net/I_am_Hutengfei/article/details/100561564 的userdetail
+        return new org.springframework.security.core.userdetails.User(user.getMobile(), user.getPassword(), authorities);
     }
 }

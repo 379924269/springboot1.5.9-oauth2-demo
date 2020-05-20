@@ -11,3 +11,11 @@
 * @Order(100) WebSecurityConfigurerAdapter
 * SecurityProperties.ACCESS_OVERRIDE_ORDER - 1 ResourceServerProperties
   说明WebSecurityConfigurerAdapter`优先级大于`ResourceServerProperties
+  
+### 登录username和password字段在数据库中变化字段问题。
+就是通过在自定义的userdetail中修改查询和user中的填充字段，具体参考可以看我的
+CustomUserDetailsServiceConfig中的配置
+
+### 注意：
+* 1、如果同一个用户获取了token 再次去获取授权码就不会弹授权界面 
+* 2、一个授权码只能用一次

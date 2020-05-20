@@ -1,0 +1,2 @@
+-- 给oauth2 添加一条客户端测试数据
+INSERT INTO `oauth_client_details` (`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `autoapprove`) VALUES ('aiqiyi', 'qq', 'secret', 'get_user_info, get_fanslist', 'password,authorization_code,client_credentials,refresh_token,implicit', 'http://localhost:8082/redirt/responseAuthorizationCode', 'ROLE_CLIENT', 'false');
