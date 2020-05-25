@@ -6,16 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import javax.annotation.PostConstruct;
 
 /**
  * @author 徐靖峰[OF2938]
- * company qianmi.com
- * Date 2018-04-25
+ *         company qianmi.com
+ *         Date 2018-04-25
  */
 @SpringBootApplication
-public class QQApp {
+public class QQApp extends SpringBootServletInitializer {
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(QQApp.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(QQApp.class, args);
@@ -27,7 +33,7 @@ public class QQApp {
     IClientdetailsService clientdetailsService;
 
     @PostConstruct
-    public void initOauth2DBTable(){
+    public void initOauth2DBTable() {
         String dbName = dbUrl.substring(dbUrl.lastIndexOf("/") + 1, dbUrl.indexOf("?"));
         boolean hasDBTable = clientdetailsService.hasDbTable(dbName, "oauth_client_details");
         if (!hasDBTable) {

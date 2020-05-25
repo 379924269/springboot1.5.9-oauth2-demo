@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    username: root
+    password: derper123
+    url: jdbc:mysql://127.0.0.1:3306/ptt?useUnicode=true&characterEncoding=utf8

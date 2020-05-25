@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import moe.cnkirito.security.oauth2.code.module.entity.Users;
 import moe.cnkirito.security.oauth2.code.module.service.IUsersService;
+import moe.cnkirito.security.oauth2.code.vo.GetContactInfoVo;
 import moe.cnkirito.security.oauth2.code.vo.GetUserInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +55,26 @@ public class ClientApiController {
         responseMap.put("nickname", userInfoList.get(0).getNickname());
         responseMap.put("email", userInfoList.get(0).getEmail());
         responseMap.put("mobile", userInfoList.get(0).getMobile());
-        responseMap.put("avator", userInfoList.get(0).getAvatar());
+        responseMap.put("avatar", userInfoList.get(0).getAvatar());
 
         return responseMap;
+    }
+
+
+    @RequestMapping(value = "getContactInfo", method = RequestMethod.GET)
+    @ApiOperation(value = "查询所有联系人信息", notes = "查询所有联系人信息", response = GetContactInfoVo.class)
+    public Object getContactInfo() {
+        QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().gt(Users::getUserId, 10000);
+        List<Users> dbUesrList = usersService.list(queryWrapper);
+        List<GetContactInfoVo> responseList = new ArrayList<>();
+        GetContactInfoVo getContactInfoVo = new GetContactInfoVo();
+
+        for (Users u : dbUesrList) {
+            getContactInfoVo.setUserId(u.getUserId());
+            responseList.add(getContactInfoVo);
+        }
+
+        return responseList;
     }
 }

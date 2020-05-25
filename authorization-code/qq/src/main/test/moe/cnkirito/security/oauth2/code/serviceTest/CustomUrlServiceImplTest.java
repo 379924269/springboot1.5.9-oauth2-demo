@@ -29,12 +29,12 @@ public class CustomUrlServiceImplTest {
 
     @Test
     public void addOauth2dDBTable() {
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_ACCESS_TOKEN);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_APPROVALS);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CLIENT_DETAILS);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CLIENT_TOKEN);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CODE);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_REFRESH_TOKEN);
-        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.CLIENTDETAILS);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_ACCESS_TOKEN);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_APPROVALS);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CLIENT_DETAILS);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CLIENT_TOKEN);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_CODE);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.OAUTH_REFRESH_TOKEN);
+//        clientdetailsService.addOauth2Table(Oauth2InitDBDataConst.CLIENTDETAILS);
     }
 }
