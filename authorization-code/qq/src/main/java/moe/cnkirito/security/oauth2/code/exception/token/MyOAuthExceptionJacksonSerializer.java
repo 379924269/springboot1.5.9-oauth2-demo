@@ -3,8 +3,6 @@ package moe.cnkirito.security.oauth2.code.exception.token;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import moe.cnkirito.security.oauth2.code.exception.BusinessException;
-import moe.cnkirito.security.oauth2.code.constant.ExceptionConst;
 
 import java.io.IOException;
 

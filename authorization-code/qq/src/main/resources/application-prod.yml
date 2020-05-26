@@ -3,3 +3,5 @@ spring:
     username: root
     password: derper123
     url: jdbc:mysql://127.0.0.1:3306/ptt?useUnicode=true&characterEncoding=utf8
+
+ptt-auth-server-url: http://192.168.0.202:8001

@@ -39,7 +39,9 @@ public class ClientApiController {
     private JdbcTokenStore jdbcTokenStore;
 
     @RequestMapping(value = "getUserInfo", method = RequestMethod.GET)
-    @ApiOperation(value = "查询所有", notes = "查询所有", response = GetUserInfoVo.class)
+    @ApiOperation(value = "查询所有",
+            notes = "因为username可能为userid、mobile和email字段所以我查询的时候是userid>mobile>email这种悠闲顺序查询的",
+            response = GetUserInfoVo.class)
     public Object getUserInfo(HttpServletRequest request) {
         String token = request.getParameter("access_token");
         if (token == null) {
@@ -47,7 +49,19 @@ public class ClientApiController {
         }
         OAuth2Authentication auth2Authentication = jdbcTokenStore.readAuthentication(token);
         String userName = auth2Authentication.getName();
-        List<Users> userInfoList = usersService.list(new QueryWrapper<Users>().lambda().eq(Users::getMobile, userName));
+        List<Users> userInfoList;
+        List<Users> userInfoList1 = usersService.list(new QueryWrapper<Users>().lambda().eq(Users::getUserId, userName));
+        List<Users> userInfoList2 = usersService.list(new QueryWrapper<Users>().lambda().eq(Users::getMobile, userName));
+        List<Users> userInfoList3 = usersService.list(new QueryWrapper<Users>().lambda().eq(Users::getEmail, userName));
+
+        if (!userInfoList1.isEmpty()) {
+            userInfoList = userInfoList1;
+        } else if (!userInfoList2.isEmpty()) {
+            userInfoList = userInfoList2;
+        } else {
+            userInfoList = userInfoList3;
+        }
+
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("userId", userInfoList.get(0).getUserId());

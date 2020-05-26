@@ -24,7 +24,7 @@
             </div>
             <div class="info">DNP会议正在请求以下授权</div>
             <div class="info-error" th:if="${param.error}">账号或密码错误</div>
-            <form class="grant-form m-t" th:classappend="${param.error} ? '' : 'm-t'" role="form" name="grantForm" action="/oauth/authorize" method="post">
+            <form class="grant-form m-t" th:classappend="${param.error} ? '' : 'm-t'" role="form" name="grantForm" action="/oauth2/oauth/authorize" method="post">
                 <input type="hidden" name="user_oauth_approval" value="true"/>
                 <ul class="grant-list" th:if="${scope}">
                     <li th:each="s:${scope}">
