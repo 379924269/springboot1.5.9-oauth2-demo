@@ -69,7 +69,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("新冠状病毒病人研究项目")
+                .title("第三方认证项目")
                 .description(new StringBuilder()
                         .append("项目的一些返回值描述:</br>")
                         .append("1、管理端需要验证的接口，在请求的header加上token（暂时没有启用）</br>")

@@ -16,6 +16,7 @@ public class EncrptyTest {
     @Test
     public void test() throws InvalidKeyException, NoSuchAlgorithmException {
         String xx = EncryptPasswordUtil.encryptPassword("@dnp5");
+        System.out.println("xx = " + xx);
         String md5xx = DigestUtils.md5Hex(xx);
         System.out.println("md5xx = " + md5xx);
     }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moe.cnkirito.security.oauth2.code.module.mapper.UsersMapper">
+    <select id="findContactInfo" resultType="moe.cnkirito.security.oauth2.code.vo.GetContactInfoVo">
+        SELECT c.friendid AS userId, u.mobile FROM contact c LEFT JOIN users u ON u.userid = c.friendid WHERE c.userid = #{userId}
+    </select>
+</mapper>

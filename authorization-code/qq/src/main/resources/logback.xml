@@ -1,6 +1,7 @@
 <!--具体参数属性参考地址：
-    1、 https://zhidao.baidu.com/question/757588274484373404.html
-    2、https://www.cnblogs.com/reason-cai/p/6763108.html
+    1、https://www.cnblogs.com/reason-cai/p/6763108.html
+    2、https://www.cnblogs.com/lixuwu/p/5804793.html
+    3、https://blog.csdn.net/zhanlan_2017/article/details/81988612?utm_source=blogxgwz1
 -->
 
 <configuration>
@@ -14,15 +15,18 @@
             <pattern>${conversion.pattern}</pattern>
             <charset>UTF-8</charset>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
     </appender>
 
     <!-- root file 日志 -->
     <appender name="root-file-error"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.dir}/error.log</file>
+        <file>${log.dir}/${context.name}_error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}/error.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
+                ${log.dir}/${context.name}_error.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${max.file.size}</maxFileSize>
@@ -32,6 +36,11 @@
         <encoder>
             <pattern>${conversion.pattern}</pattern>
         </encoder>
+        <!-- 当日志级别等于设定的level，返回onMatch，否则返回onMismatch -->
+        <!-- onMatch也可以设定为DENY拒绝；match结果可以对应以下三个动作之一：
+         accept：整个过滤链不再向下走，直接返回通过操作
+         deny：整个过滤链不再向下走，直接返回不通过操作
+         neutral：不返回操作，继续沿过滤链走下一个过滤器-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
@@ -40,10 +49,10 @@
     </appender>
     <appender name="root-file-warn"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.dir}/warn.log</file>
+        <file>${log.dir}/${context.name}_warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}/warn.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
+                ${log.dir}/${context.name}_warn.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${max.file.size}</maxFileSize>
@@ -61,10 +70,10 @@
     </appender>
     <appender name="root-file-info"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.dir}/info.log</file>
+        <file>${log.dir}/${context.name}_info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}/info.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
+                ${log.dir}/${context.name}_info.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${max.file.size}</maxFileSize>
@@ -82,10 +91,10 @@
     </appender>
     <appender name="root-file-debug"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.dir}/debug.log</file>
+        <file>${log.dir}/${context.name}_debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}/debug.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
+                ${log.dir}/${context.name}_debug.%d{${rolling.policy.file.name.pattern}}%d{mmss}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${max.file.size}</maxFileSize>

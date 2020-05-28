@@ -17,7 +17,7 @@ import java.util.Collection;
 
 /**
  * <p>
- * 前端控制器 操作token
+ * 前端控制器 操作token 可以让指定token失效，也可以让指定用户的token失效
  * </p>
  *
  * @author huazai

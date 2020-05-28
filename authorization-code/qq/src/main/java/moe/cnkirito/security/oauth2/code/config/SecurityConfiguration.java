@@ -63,7 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 return DigestUtils.md5Hex((String) charSequence);
             }
 
-            // 这个地方  我参考别人实现了但是上面的encode方法没有调用不知到问什么，值嗲用了下面的matches方法
+            /* 这个地方  我参考别人实现了但是上面的encode方法没有调用不知到问什么，值嗲用了下面的matches方法
+            *  charSequence 传上来的密码   s:数据库的密码，在userdetail中获取的密码*/
             @Override
             public boolean matches(CharSequence charSequence, String s) {
                 try {

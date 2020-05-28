@@ -31,7 +31,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
      *
      * @param request HttpServletRequest
      */
-    private void showMethodLog(HttpServletRequest request) {
+    public static void showMethodLog(HttpServletRequest request) {
         String requestUriString = request.getRequestURI();
         String contextPath = request.getContextPath();
         String url = requestUriString.substring(contextPath.length());
